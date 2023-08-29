@@ -1,15 +1,18 @@
-create table carta_di_credito (
-	numero varchar(16) primary key not null,
-	intestatario varchar(255) not null,
-	scadenza date not null,
-	cvv int not null
-);
-
+-- CREAZIONE TABELLE
 create table utente (
 	email varchar(255) primary key not null,
 	password varchar(255) not null,
 	nome varchar(255) not null,
 	cognome varchar(255) not null
+);
+
+create table carta_di_credito (
+	numero varchar(16) primary key not null,
+	intestatario varchar(255) not null,
+	scadenza date not null,
+	cvv int not null,
+	utente varchar(255),
+	foreign key (utente) references utente(email)
 );
 
 create table indirizzo (
@@ -71,3 +74,125 @@ create table contenuto (
 	foreign key (lista) references lista(id),
 	foreign key (prodotto) references prodotto(id)
 );
+
+-- POPOLAMENTO DELLE TABELLE 
+
+INSERT INTO utente (email, password, nome, cognome) VALUES
+	('mauro.cattaneo@gmail.com', 'password', 'Mauro', 'Cattaneo'),
+	('arturo.rizzo@gmail.com', 'password', 'arturo', 'rizzo'),
+	('sandro.schiavone@gmail.com', 'password', 'sandro', 'schiavone'),
+	('mauro.giordano@gmail.com', 'password', 'mauro', 'giordano'),
+	('cristiano.giordano@gmail.com', 'password', 'cristiano', 'giordano'),
+	('lavinia.toscano@gmail.com', 'password', 'lavinia', 'toscano'),
+	('miriam.angelo@gmail.com', 'password', 'miriam', 'angelo'),
+	('leila.costa@gmail.com', 'password', 'leila', 'costa'),
+	('melania.calabrese@gmail.com', 'password', 'melania', 'calabrese'),
+	('arianna.palermo@gmail.com', 'password', 'arianna', 'palermo');
+
+INSERT INTO carta_di_credito (numero, intestatario, scadenza, cvv, utente) VALUES
+	('4619859532357609', 'Mauro Cattaneo', '2026-01-01', '443', 'mauro.cattaneo@gmail.com'),
+	('4694038576505583', 'Arturo Rizzo', '2025-10-01', '057', 'arturo.rizzo@gmail.com'),
+	('4822293516814513', 'Sandro Schiavone', '2027-11-01', '447', 'sandro.schiavone@gmail.com'),
+	('4280794322027690', 'Mauro Giordano', '2026-08-01', '485', 'mauro.giordano@gmail.com'),
+	('4119865677385466', 'Cristiano Giordano', '2026-08-01', '212', 'cristiano.giordano@gmail.com'),
+	('4365747884217099', 'Lavinia Toscano', '2024-07-01', '290', 'lavinia.toscano@gmail.com'),
+	('4268601990913463', 'Miriam Angelo', '2028-01-01', '441', 'miriam.angelo@gmail.com'),
+	('4784837462867218', 'Leila Costa', '2028-02-01', '755', 'leila.costa@gmail.com'),
+	('4991830720961864', 'Melania Calabrese', '2025-01-01', '502', 'melania.calabrese@gmail.com'),
+	('4022707262300912', 'Arianna Palermo', '2026-09-01', '801', 'arianna.palermo@gmail.com');
+
+INSERT INTO indirizzo (via, numero_civico, cap, citta, stato) VALUES
+	('Borgo Marianita', 0, '18555', 'Quarto Enzo', 'IT'),
+	('Rotonda Grasso', 3, '56927', 'Perugia', 'IT'),
+	('Contrada Gilda', 274, '07196', 'Settimo Sibilla Taranto', 'IT'),
+	('Via Longo', 7, '24972', 'Sibilla Ligure Ascoli Piceno', 'IT'),
+	('Rotonda Donati', 878, '83908', 'De Luca Calabro Rimini', 'IT'),
+	('Contrada Farina', 0, '29268', 'Quarto Rudy Terme Cagliari', 'IT'),
+	('Strada Giulietta', 764, '66241', 'Palmieri Sardo Palermo', 'IT'),
+	('Piazza Giovanna', 5, '78711', 'Guerra A Mare Siracusa', 'IT'),
+	('Via Sartori', 7, '31777', 'Lino Umbro Ferrara', 'IT'),
+	('Rotonda Deborah', 199, '24900', 'Quarto Fiorentino Sardo Sassari', 'IT');
+
+INSERT INTO indirizzo_spedizione (utente, indirizzo) VALUES
+	(1, 'mauro.cattaneo@gmail.com'),
+	(2, 'arturo.rizzo@gmail.com'),
+	(3, 'sandro.schiavone@gmail.com'),
+	(4, 'mauro.giordano@gmail.com'),
+	(5, 'cristiano.giordano@gmail.com'),
+	(6, 'lavinia.toscano@gmail.com'),
+	(7, 'miriam.angelo@gmail.com'),
+	(8, 'leila.costa@gmail.com'),
+	(9, 'melania.calabrese@gmail.com'),
+	(10, 'arianna.palermo@gmail.com');
+
+
+-- da popolare in un secondo momento.
+INSERT INTO lista (nome, utente, data_creazione, data_modifica) VALUES 
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', ''),
+	('', '', '', '');
+
+
+INSERT INTO categoria (nome, descrizione) VALUES
+	('Scarpe da trekking', 'descrizione'),
+	('Tute termiche', 'descrizione'), 
+	('Zaini da montagna', 'descrizione'), 
+	('Felpe', 'descrizione'), 
+	('Tute da sci', 'descrizione');
+
+
+INSERT INTO prodotto (nome, descrizione, prezzo, quantita, tag) VALUES 
+	('', '', 0.0, 100, 'Scarpe da trekking'),
+	('', '', 0.0, 100, 'Scarpe da trekking'),
+	('', '', 0.0, 100, 'Scarpe da trekking'),
+	('', '', 0.0, 100, 'Scarpe da trekking'),
+	('', '', 0.0, 100, 'Tute da sci'),
+	('', '', 0.0, 100, 'Tute da sci'),
+	('', '', 0.0, 100, 'Tute da sci'),
+	('', '', 0.0, 100, 'Tute da sci'),
+	('', '', 0.0, 100, 'Felpe'),
+	('', '', 0.0, 100, 'Felpe'),
+	('', '', 0.0, 100, 'Felpe'),
+	('', '', 0.0, 100, 'Felpe'),
+	('', '', 0.0, 100, 'Zaini da montagna'),
+	('', '', 0.0, 100, 'Zaini da montagna'),
+	('', '', 0.0, 100, 'Zaini da montagna'),
+	('', '', 0.0, 100, 'Tute termiche'),
+	('', '', 0.0, 100, 'Tute termiche');
+
+INSERT INTO contenuto (lista, prodotto, quantita) VALUES
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
+	(0, 0, 10),
