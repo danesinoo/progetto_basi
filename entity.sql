@@ -128,11 +128,9 @@ INSERT INTO indirizzo_spedizione (utente, indirizzo) VALUES
 
 -- da popolare in un secondo momento.
 INSERT INTO lista (nome, utente, data_creazione, data_modifica) VALUES 
-	('', '', '', ''),
-	('', '', '', ''),
-	('', '', '', ''),
-	('', '', '', ''),
-	('', '', '', ''),
+	('carrello mauro', 'mauro.cattaneo@gmail.com', '2022-08-09', '2022-08-09'),
+	('carrello mauro', 'mauro.cattaneo@gmail.com', '2022-09-09', '2022-09-09'),
+	('carrello mauro', 'mauro.cattaneo@gmail.com', '2022-08-19', '2022-08-19'),
 	('', '', '', ''),
 	('', '', '', ''),
 	('', '', '', ''),
@@ -162,23 +160,23 @@ INSERT INTO categoria (nome, descrizione) VALUES
 
 
 INSERT INTO prodotto (nome, descrizione, prezzo, quantita, tag) VALUES 
-	('', '', 0.0, 100, 'Scarpe da trekking'),
-	('', '', 0.0, 100, 'Scarpe da trekking'),
-	('', '', 0.0, 100, 'Scarpe da trekking'),
-	('', '', 0.0, 100, 'Scarpe da trekking'),
+	('', 'scarpe da trekking', 0.0, 100, 'Scarpe da trekking'),
+	('', 'scarpe da trekking', 0.0, 100, 'Scarpe da trekking'),
+	('', 'scarpe da trekking', 0.0, 100, 'Scarpe da trekking'),
+	('', 'scarpe da trekking', 0.0, 100, 'Scarpe da trekking'),
 	('', '', 0.0, 100, 'Tute da sci'),
-	('', '', 0.0, 100, 'Tute da sci'),
-	('', '', 0.0, 100, 'Tute da sci'),
-	('', '', 0.0, 100, 'Tute da sci'),
-	('', '', 0.0, 100, 'Felpe'),
-	('', '', 0.0, 100, 'Felpe'),
-	('', '', 0.0, 100, 'Felpe'),
-	('', '', 0.0, 100, 'Felpe'),
-	('', '', 0.0, 100, 'Zaini da montagna'),
-	('', '', 0.0, 100, 'Zaini da montagna'),
-	('', '', 0.0, 100, 'Zaini da montagna'),
-	('', '', 0.0, 100, 'Tute termiche'),
-	('', '', 0.0, 100, 'Tute termiche');
+	('', 'tuta da sci da uomo', 0.0, 100, 'Tute da sci'),
+	('', 'tuta da sci da uomo', 0.0, 100, 'Tute da sci'),
+	('', 'tuta da sci da donna', 0.0, 100, 'Tute da sci'),
+	('', 'felpa da uomo', 0.0, 100, 'Felpe'),
+	('', 'felpa da uomo', 0.0, 100, 'Felpe'),
+	('', 'felpa da donna', 0.0, 100, 'Felpe'),
+	('', 'felpa termica da donna', 0.0, 100, 'Felpe'),
+	('', 'zaino 22L', 0.0, 100, 'Zaini da montagna'),
+	('', 'zaino 30L', 0.0, 100, 'Zaini da montagna'),
+	('', 'zaino 42L', 0.0, 100, 'Zaini da montagna'),
+	('', 'tuta termica uomo', 0.0, 100, 'Tute termiche'),
+	('', 'tuta termica donna', 0.0, 100, 'Tute termiche');
 
 INSERT INTO contenuto (lista, prodotto, quantita) VALUES
 	(0, 0, 10),
