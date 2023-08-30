@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Analisi dei requisiti}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Descrizione testuale}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Progettazione concettuale}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Lista delle entit\340}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.2}{Schema Concettuale}{section.3}% 6
+\BOOKMARK [3][-]{section*.4}{Vincoli non rappresentabili tramite schema E-R:}{subsection.3.2}% 7
+\BOOKMARK [3][-]{section*.5}{Vincoli di derivazione:}{subsection.3.2}% 8
+\BOOKMARK [1][-]{section.4}{Progettazione logica}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Ristrutturazione}{section.4}% 10
+\BOOKMARK [3][-]{section*.7}{Analisi delle ridondanze}{subsection.4.1}% 11
+\BOOKMARK [3][-]{section*.9}{Scelta degli identificatori primari}{subsection.4.1}% 12
+\BOOKMARK [3][-]{section*.11}{Creazione delle tabelle}{subsection.4.1}% 13

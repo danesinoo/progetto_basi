@@ -1,15 +1,18 @@
-create table carta_di_credito (
-	numero varchar(16) primary key not null,
-	intestatario varchar(255) not null,
-	scadenza date not null,
-	cvv int not null
-);
-
+-- CREAZIONE TABELLE
 create table utente (
 	email varchar(255) primary key not null,
 	password varchar(255) not null,
 	nome varchar(255) not null,
 	cognome varchar(255) not null
+);
+
+create table carta_di_credito (
+	numero varchar(16) primary key not null,
+	intestatario varchar(255) not null,
+	scadenza date not null,
+	cvv int not null,
+	utente varchar(255),
+	foreign key (utente) references utente(email)
 );
 
 create table indirizzo (
@@ -71,3 +74,4 @@ create table contenuto (
 	foreign key (lista) references lista(id),
 	foreign key (prodotto) references prodotto(id)
 );
+
