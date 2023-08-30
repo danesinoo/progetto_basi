@@ -61,15 +61,15 @@ void query_1(PGconn* conn) {
 	PGresult* res;
 
 	std::vector<std::string> messaggi = {
-		"inserici data inizio",
-		"inserici data fine"
+		"inserici data inizio ",
+		"inserici data fine "
 	};
 	std::vector<std::string> args; 
 	get_parameters(messaggi, args);
 
 	const char* parameters[2] = {args[0].c_str(), args[1].c_str()};
 
-	std::string query =  "SELECT lista.utente, sum(contenuto.quantita) FROM lista, contenuto WHERE lista.id = contenuto.lista AND lista.data_creazione > $1::date GROUP BY (lista.utente)";
+	std::string query =  "SELECT lista.utente, sum(contenuto.quantita) FROM lista, contenuto WHERE lista.id = contenuto.lista AND lista.data_creazione > $1::date AND lista.data_creazione < $2::date GROUP BY (lista.utente)";
 	PGresult* stmt = PQprepare(conn,"query_1", query.c_str() , 2, NULL);
 	
 	res = PQexecPrepared(conn, "query_1", 2, parameters, NULL, NULL, 0);
@@ -94,9 +94,9 @@ void query_3(PGconn* conn) {
 int main() {
 	std::map<unsigned int, std::string> messaggi;
 	messaggi[0] = "0: esci";
-	messaggi[1] = "1: query 1";
-	messaggi[2] = "2: query 2";
-	messaggi[3] = "3: query 3";
+	messaggi[1] = "1: numero prodotti comprati da quali utenti in un certo periodo";
+	messaggi[2] = "2: numero di ordini effettuati da quali utenti";
+	messaggi[3] = "3: utenti e numero di carrelli da loro creati che non sono poi stati processati come ordini.";
 
 	std::map<unsigned int, void (*)(PGconn*)> queries;
 	queries[1] = &query_1;
