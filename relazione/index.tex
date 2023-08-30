@@ -106,7 +106,7 @@ del carrello desiderato. Di ogni ordine sono noti:
 	\item data di ultima modifica
 	\item prodotti contenuti
 	\item provider del pagamento
-	\item status del pagamento
+	\item status dell'ordine
 	\item indirizzo di spedizione
 \end{itemize}
 
@@ -366,7 +366,7 @@ l'attributo "Costo" all'entità Ordine, ma l'operazione 4 è poco frequente.
 		\textbf{Generalizzazione} & \textbf{Risoluzione} \\
 		\hline
 		Lista $\leftarrow$ Carrello, Ordine & L'entità Carrello è accorpata in
-		Lista, con l'aggiunta di un attributo opzionale "nome VARCHAR(255)".
+		Lista, con l'aggiunta di un attributo "nome VARCHAR(255) not null".
 		L'entità Ordine è rappresentata mediante una relazione tra Lista (0,1) e
 		Indirizzo (0, N), dove gli attributi di Ordine diventano attributi della
 		relazione. \\
@@ -412,11 +412,5 @@ creazione, data modifica)
 $\rightarrow$ Categoria.nome)
 
 \paragraph{Categoria}(\underline{nome}, descrizione)
-
-
-
-
-
-
 
 \end{document}
