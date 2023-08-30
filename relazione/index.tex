@@ -3,10 +3,12 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
-\lstset { %
-    language=C++,
-    backgroundcolor=\color{black!5}, % set backgroundcolor
-    basicstyle=\footnotesize,% basic font setting
+\lstset{
+    language=SQL, % Set the language to SQL
+    basicstyle=\ttfamily\color{black}, % Regular font style
+    commentstyle=\color{green!60!black}, % Set the color for comments
+    keywordstyle=\bfseries\color{blue}, % Bold and color for keywords
+    stringstyle=\color{orange}, % Set the color for strings
 }
 
 \usepackage{tabularx}
@@ -412,5 +414,124 @@ creazione, data modifica)
 $\rightarrow$ Categoria.nome)
 
 \paragraph{Categoria}(\underline{nome}, descrizione)
+
+\section{Here I write the queries}
+
+\begin{lstlisting}[language=SQL]
+SELECT lista.utente, sum(contenuto.quantita)
+FROM lista, contenuto
+WHERE lista.id = contenuto.lista 
+AND lista.data_creazione > '2023-01-01'
+GROUP BY (lista.utente);
+\end{lstlisting}
+
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT utente.email, count(utente.email)
+FROM utente, lista, ordine
+WHERE utente.email = lista.utente
+AND lista.id = ordine.lista
+GROUP BY (utente.email)
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT email, count(email) 
+FROM ((
+	SELECT utente.email, lista.id from utente, lista
+	WHERE utente.email = lista.utente) as tab
+	LEFT OUTER JOIN ordine
+	ON tab.id = ordine.lista)
+WHERE lista IS NULL
+GROUP BY email
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT ordine.lista, 
+	sum(prodotto.prezzo * contenuto.quantita) as totale
+FROM ordine, prodotto, contenuto
+WHERE ordine.lista = contenuto.lista
+AND prodotto.id = contenuto.prodotto
+GROUP BY ordine.lista
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT lista.nome, totale 
+FROM (
+	SELECT tab.id, sum(prezzo * quantita) as totale
+	FROM (
+		SELECT lista.id as id, prodotto.prezzo, 
+			contenuto.quantita
+		FROM lista, prodotto, contenuto
+		WHERE lista.id = contenuto.lista
+		AND prodotto.id = contenuto.prodotto
+	) as tab 
+	LEFT JOIN ordine
+	ON tab.id = lista
+	WHERE indirizzo is NULL
+	GROUP BY tab.id) as tab2, lista
+WHERE tab2.id = lista.id;
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT DATE(data_creazione) AS day, sum(totale)
+FROM lista, (
+	SELECT ordine.lista, 
+		sum(prodotto.prezzo * contenuto.quantita) AS totale
+	FROM ordine, prodotto, contenuto
+	WHERE ordine.lista = contenuto.lista
+	AND prodotto.id = contenuto.prodotto
+	GROUP BY ordine.lista) as costo_ordini
+WHERE lista.id = lista
+GROUP BY day;
+\end{lstlisting}
+
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT EXTRACT(YEAR from data_creazione) AS year, 
+	EXTRACT(MONTH from data_creazione) AS month, sum(totale)
+FROM lista, (
+	SELECT ordine.lista, 
+		sum(prodotto.prezzo * contenuto.quantita) AS totale
+	FROM ordine, prodotto, contenuto
+	WHERE ordine.lista = contenuto.lista
+	AND prodotto.id = contenuto.prodotto
+	GROUP BY ordine.lista) AS costo_ordini
+WHERE lista.id = lista
+GROUP BY year, month
+ORDER BY year, month;
+\end{lstlisting}
+
+
+
+
+
+\begin{lstlisting}[language=SQL]
+SELECT p.tag, sum(p.prezzo * c.quantita) as totale
+FROM prodotto as p, contenuto as c, ordine as o
+WHERE p.id = c.prodotto
+AND o.lista = c.lista
+GROUP BY p.tag
+HAVING sum(p.prezzo * c.quantita) > 100
+ORDER BY totale DESC;
+\end{lstlisting}
+
 
 \end{document}
