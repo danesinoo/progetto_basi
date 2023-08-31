@@ -11,6 +11,7 @@
     stringstyle=\color{orange}, % Set the color for strings
 }
 
+\usepackage{listings}
 \usepackage{tabularx}
 \usepackage{changepage}
 \usepackage{amsfonts}
@@ -415,6 +416,7 @@ $\rightarrow$ Categoria.nome)
 
 \paragraph{Categoria}(\underline{nome}, descrizione)
 
+
 \section{Here I write the queries}
 
 \begin{lstlisting}[language=SQL]
@@ -533,5 +535,79 @@ HAVING sum(p.prezzo * c.quantita) > 100
 ORDER BY totale DESC;
 \end{lstlisting}
 
+\section{Esecuzione queries in codice in cpp}
+\subsection{Strutturazione}
+
+Per l'esecuzione delle queries precedenti, si è scelto di scrivere un singolo file cpp contenente il codice in grado di svolgere le seguenti funzionalità:   
+\begin{itemize}
+	\item connessione al database.
+	\item esecuzione di ogni interrogazione.
+	\item stampa dei risultati per una generica interrogazione.
+\end{itemize}
+
+Ogni interrogazione è stata messa all'interno di una procedura avente la firma query(PGconn*); all'interno di essa si trova il codice necessario per poterla eseguire la query e stamparne i risultati.
+
+\subsection{Esecuzione}
+
+Per poter eseguire una delle interrogazioni disponibili, all'interno del main viene creata una mappa di puntatori a funzione aventi la firma query(PGconn*); in particolare la mappa è del tipo: std::map<unsigned int, void (*)(PGconn*)>.
+
+Viene poi creata una mappa del tipo std::map<unsigned int, std::string> contenente le singole descrizioni del risultato di ogni query.
+
+A questo punto viene instaurata la connessione al database mediante la funzione checkConnection(PGconn*); nel caso in cui la connessione sia andata a buon fine, si entra in un ciclo do while che esegue le seguenti istruzioni:
+
+\begin{enumerate}
+	\item stampa della mappa contenente le descrizioni delle query.
+	\item viene chiesto all'utente di immettere un numero di quelli specificati dalle descrizioni precedentemente stampate.
+	\item tramite il numero ottenuto, viene eseguita la query associata ad esso mediante la mappa di puntatori a funzine
+\end{enumerate}
+
+Il codice contenuto nel main è il seguente.
+
+\begin{lstlisting}
+int main() {
+	std::map<unsigned int, std::string> messaggi;
+	// inizializzazione messaggi
+	std::map<unsigned int, void (*)(PGconn*)> queries;
+	// inizializzazione queries 
+	
+	
+	// SETUP CONNESSIONE al DB
+	PGconn* conn;
+	char conninfo [250];
+	sprintf(conninfo, 
+	"user=%s password=%s dbname=%s hostaddr=%s port=%d" ,
+	PG_USER , PG_PASS , PG_DB , PG_HOST , PG_PORT ) ;
+	
+	// APERTURA DELLA CONNESSIONE
+	conn = PQconnectdb(conninfo);
+
+	// CONTROLLO DELLA CONNESSIONE
+	checkConnection(conn);
+
+
+	unsigned int operazione = 0;
+	do {
+		print_messages(messaggi);
+		std::cin >> operazione;
+		if (operazione != 0) {
+			queries[operazione](conn);
+		}
+	} while(operazione != 0);
+} 
+\end{lstlisting}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
